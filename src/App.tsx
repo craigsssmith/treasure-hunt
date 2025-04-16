@@ -1,10 +1,29 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
+export const App = () => {
+  const [count, setCount] = useState(0);
+  const installPrompt = useRef<Event | null>(null);
+
+  const onInstall = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const result = await (installPrompt.current as any).prompt();
+    alert(`Install prompt was: ${result.outcome}`);
+  };
+
+  const onInstallPrompt = useCallback((event: Event) => {
+    event.preventDefault();
+    installPrompt.current = event;
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', onInstallPrompt);
+    return () => {
+      window.removeEventListener('beforeinstallprompt', onInstallPrompt);
+    }
+  }, [onInstallPrompt]);
 
   return (
     <>
@@ -21,15 +40,10 @@ function App() {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button onClick={onInstall}>
+          install
+        </button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
-}
-
-export default App
+};
