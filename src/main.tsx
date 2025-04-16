@@ -7,4 +7,8 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />
   </StrictMode>,
-)
+);
+
+window.addEventListener('beforeinstallprompt', () => {
+  alert('beforeinstallprompt...');
+});
