@@ -1,21 +1,25 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useCallback, useEffect, useState } from 'react';
+import reactLogo from './assets/react.svg';
+import viteLogo from '/vite.svg';
+import './App.css';
+
+type BeforeInstallPromptEvent = Event & {
+  prompt: () => Promise<void>;
+};
 
 export const App = () => {
   const [count, setCount] = useState(0);
-  const installPrompt = useRef<Event | null>(null);
+  const [prompt, setPrompt] = useState<Event | null>(null);
 
   const onInstall = async () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const result = await (installPrompt.current as any).prompt();
-    alert(`Install prompt was: ${result.outcome}`);
+    if (prompt) {
+      (prompt as BeforeInstallPromptEvent).prompt();
+    }
   };
 
   const onInstallPrompt = useCallback((event: Event) => {
     event.preventDefault();
-    installPrompt.current = event;
+    setPrompt(event);
   }, []);
 
   useEffect(() => {
@@ -40,9 +44,11 @@ export const App = () => {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <button onClick={onInstall}>
-          install
-        </button>
+        {prompt && (
+          <button onClick={onInstall}>
+            install
+          </button>
+        )}
       </div>
     </>
   )
