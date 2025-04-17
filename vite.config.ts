@@ -17,6 +17,7 @@ export default defineConfig({
         short_name: 'MyApp',
         description: 'My Awesome App description',
         theme_color: '#ffffff',
+        display: 'fullscreen',
         icons: [
           {
             src: 'pwa-64x64.png',
