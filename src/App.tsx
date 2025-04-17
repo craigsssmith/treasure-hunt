@@ -44,11 +44,12 @@ export const App = () => {
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        {prompt && (
-          <button onClick={onInstall}>
-            install
-          </button>
-        )}
+        <button onClick={onInstall}>
+          install
+        </button>
+        <a href="/away-days/" target="_blank">
+          open
+        </a>
       </div>
     </>
   )
