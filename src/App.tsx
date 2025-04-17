@@ -1,45 +1,47 @@
-import { useCallback, useEffect, useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { useInstallPrompt } from './useInstallPrompt';
+import { useSpeechRecognition } from './useSpeechRecognition';
+import { stringSimilarity } from './utils';
 import './App.css';
-
-type BeforeInstallPromptEvent = Event & {
-  prompt: () => Promise<void>;
-};
 
 export const App = () => {
   const [count, setCount] = useState(0);
-  const [prompt, setPrompt] = useState<Event | null>(null);
+  const prompt = useInstallPrompt();
+  const recognition = useSpeechRecognition();
+  const ref = useRef<HTMLDivElement>(null);
 
   const onInstall = async () => {
-    if (prompt) {
-      (prompt as BeforeInstallPromptEvent).prompt();
-    }
+    prompt?.prompt();
   };
 
-  const onInstallPrompt = useCallback((event: Event) => {
-    event.preventDefault();
-    setPrompt(event);
+  const onListen = useCallback(() => {
+    recognition.start();
+  }, [recognition]);
+
+  const onRegcognitionResult = useCallback((event: SpeechRecognitionEvent) => {
+    const result = event.results[0];
+    const text = result[0].transcript;
+
+    console.log(text);
+
+    if (ref.current) {
+      ref.current.textContent = text;
+    }
+
+    if (result.isFinal) {
+      console.log('match: ', stringSimilarity(text, 'The hall was filled with portraits and statues, watching silently.'));
+    }
   }, []);
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', onInstallPrompt);
+    recognition.addEventListener('result', onRegcognitionResult);
     return () => {
-      window.removeEventListener('beforeinstallprompt', onInstallPrompt);
+      recognition.removeEventListener('result', onRegcognitionResult);
     }
-  }, [onInstallPrompt]);
+  }, [onRegcognitionResult, recognition]);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+    <div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
@@ -50,7 +52,11 @@ export const App = () => {
         <a href="/away-days/" target="_blank">
           open
         </a>
+        <button onClick={onListen}>
+          listen
+        </button>
       </div>
-    </>
+      <div className="output" ref={ref} />
+    </div>
   )
 };
