@@ -49,7 +49,7 @@ export const App = () => {
         <button onClick={onInstall}>
           install
         </button>
-        <a href="/away-days/" target="_blank">
+        <a href="/treasure-hunt/" target="_blank">
           open
         </a>
         <button onClick={onListen}>

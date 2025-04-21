@@ -4,7 +4,7 @@ import { VitePWA } from 'vite-plugin-pwa';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/away-days/',
+  base: '/treasure-hunt/',
   plugins: [
     react(),
     VitePWA({
