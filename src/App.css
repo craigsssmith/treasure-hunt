@@ -1,45 +1,136 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body {
+  margin: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+* {
+  box-sizing: border-box;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+[data-screen="0"] {
+  --duo1: #DCC3FF;
+  --duo2: #A5F4FF;
+  --pos: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+[data-screen="1"] {
+  --duo1: #FFAEF4;
+  --duo2: #FFD1B3;
+  --pos: 1;
 }
 
-.card {
-  padding: 2em;
+[data-screen="2"] {
+  --duo1: #FFBBA4;
+  --duo2: #FFFABB;
+  --pos: 2;
+}
+
+[data-screen="3"] {
+  --duo1: #99EFFF;
+  --duo2: #EEFFB4;
+  --pos: 3;
+}
+
+.view {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.background {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('./assets/background.png');
+  background-size: auto 100%;
+  background-position: calc(45% + (var(--pos) * 10%)) 50%;
+  transition: background-position 1000ms ease-in-out;
+}
+
+.duo1 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--duo1);
+  mix-blend-mode: screen;
+  transition: background-color 1000ms ease-in-out;
+}
+
+.duo2 {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--duo2);
+  mix-blend-mode: multiply;
+  transition: background-color 1000ms ease-in-out;
+}
+
+.screens {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: calc(var(--pos) * -100vw);
+  transition: left 1000ms ease-in-out;
+  overflow: hidden;
+}
+
+.screen {
+  width: 100vw;
+  height: 100vh;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 1em;
 }
 
-.read-the-docs {
-  color: #888;
+.grow {
+  flex-grow: 1;
+}
+
+.actions {
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+h1, h2 {
+  margin: 0;
+  font-family: "Ultra", serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1.25em;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+img.divider {
+  width: 100%;
+  margin: 20px 0;
+}
+
+button {
+  position: relative;
+  border: 4px solid #282D2F;
+  padding: 12px 0;
+  width: 150px;
+  border-radius: 12px;
+  background: white;
+  font-family: "Ultra", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 24px;
+  box-shadow: #282D2F 6px 6px 0;
+  transition: all 100ms ease-in-out;
+  top: 0;
+  left: 0;
+}
+
+button:active {
+  top: 6px;
+  left: 6px;
+  box-shadow: #282D2F 0 0 0;
 }
