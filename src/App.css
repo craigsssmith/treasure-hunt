@@ -32,15 +32,15 @@ body {
 
 .view {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   overflow: hidden;
 }
 
 .background {
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background-image: url('./assets/background.png');
   background-size: auto 100%;
   background-position: calc(45% + (var(--pos) * 10%)) 50%;
@@ -49,8 +49,8 @@ body {
 
 .duo1 {
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background-color: var(--duo1);
   mix-blend-mode: screen;
   transition: background-color 1000ms ease-in-out;
@@ -58,8 +58,8 @@ body {
 
 .duo2 {
   position: absolute;
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   background-color: var(--duo2);
   mix-blend-mode: multiply;
   transition: background-color 1000ms ease-in-out;
@@ -69,14 +69,14 @@ body {
   position: absolute;
   display: flex;
   top: 0;
-  left: calc(var(--pos) * -100vw);
+  left: calc(var(--pos) * -100dvw);
   transition: left 1000ms ease-in-out;
   overflow: hidden;
 }
 
 .screen {
-  width: 100vw;
-  height: 100vh;
+  width: 100dvw;
+  height: 100dvh;
   padding: 30px;
   display: flex;
   flex-direction: column;
