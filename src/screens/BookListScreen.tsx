@@ -1,4 +1,5 @@
 import { Divider, Button, Screen } from "../components"
+import { getQuotes } from "../services";
 
 type BookListScreenProps = {
   pos: number;
@@ -7,17 +8,18 @@ type BookListScreenProps = {
 };
 
 export const BookListScreen: React.FC<BookListScreenProps> = ({ pos, show, onBack }) => {
+  const quotes = getQuotes();
+  
   return (
     <Screen pos={pos} show={show}>
       <Divider />
       <div className="book-list">
-        <Book index={1} quote="She pushed the door slowly open and stepped into the garden." />
-        <Book index={2} quote="Music drifted softly through the dark room." />
-        <Book index={3} quote="He looked out over the wide world, imagining far-off places." />
-        <Book index={4} quote="The hall was filled with portraits and statues, watching silently." />
-        <Book index={5} quote="Barrels of rum lined the wall, like treasure waiting to be found." />
-        <Book index={6} quote="She sat under a tree, wondering what might happen next." />
-        <Book index={7} quote="He stood by the stairs, unable to speak." />
+        {quotes.map((quote, index) => (
+          <Book key={quote} index={index + 1} quote={quote} />  
+        ))}
+        {new Array(7 - quotes.length).fill(true).map((_, index) => (
+          <Book index={index + quotes.length + 1} quote="? ? ?" />  
+        ))}
       </div>
       <div className="actions">
         <Button onPress={onBack}>Back</Button>

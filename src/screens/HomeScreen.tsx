@@ -2,6 +2,7 @@ import { Divider, Screen, IconButton } from "../components";
 import iconBook from '../assets/icon-book.svg';
 import iconMicrophone from '../assets/icon-microphone.svg';
 import iconPencil from '../assets/icon-pencil.svg';
+import { getQuotes } from "../services";
 
 type HomeScreenProps = {
   pos: number;
@@ -11,9 +12,11 @@ type HomeScreenProps = {
 };
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote }) => {
+  const quotes = getQuotes();
+
   return (
     <Screen pos={pos} show={show}>
-      <h1 className="big">0/7</h1>
+      <h1 className="big">{quotes.length}/7</h1>
       <h1>Books<br />found</h1>
       <Divider />
       <div className="grow" />

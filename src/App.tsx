@@ -1,10 +1,31 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BookListScreen, EnterQuoteScreen, HomeScreen, InformationScreen, TeamNameScreen, WelcomeScreen } from './screens';
+import { checkQuote, getTeamName, setTeamName } from './services';
 import { ScreenName } from './types';
 import './App.css';
 
 export const App = () => {
   const [screen, setScreen] = useState<ScreenName>('welcome');
+
+  const handleQuoteSubmit = (quote: string) => {
+    checkQuote(quote);
+    setScreen('home');
+  };
+
+  const handleTeamNameSubmit = (name: string) => {
+    setTeamName(name);
+    setScreen('home');
+  };
+
+  // Jump ahead to the home screen if the user refreshes the page after they
+  // have fully onboarded into the app.
+  useEffect(() => {
+    if (screen === 'welcome' && getTeamName() !== null) {
+      setTimeout(() => {
+        setScreen('home');
+      }, 1000);
+    }
+  }, [screen])
   
   return (
     <div className="view" data-screen={screen}>
@@ -27,7 +48,7 @@ export const App = () => {
         />
         <TeamNameScreen
           show={screen === 'team-name'}
-          onNext={() => setScreen('home')}
+          onSubmit={handleTeamNameSubmit}
           pos={2}
         />
         <HomeScreen
@@ -38,7 +59,7 @@ export const App = () => {
         />
         <EnterQuoteScreen
           show={screen === 'enter-quote'}
-          onSubmit={() => setScreen('home')}
+          onSubmit={handleQuoteSubmit}
           pos={4}
         />
         <BookListScreen
