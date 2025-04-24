@@ -1,3 +1,7 @@
+:root {
+  --speed: 500ms;
+}
+
 body {
   margin: 0;
 }
@@ -30,6 +34,18 @@ body {
   --pos: 3;
 }
 
+[data-screen="4"] {
+  --duo1: #FFC0F9;
+  --duo2: #FFD4F7;
+  --pos: 4;
+}
+
+[data-screen="5"] {
+  --duo1: #ABCFFF;
+  --duo2: #D5CAFF;
+  --pos: 2;
+}
+
 .view {
   position: relative;
   width: 100dvw;
@@ -44,7 +60,7 @@ body {
   background-image: url('./assets/background.png');
   background-size: auto 100%;
   background-position: calc(45% + (var(--pos) * 10%)) 50%;
-  transition: background-position 1000ms ease-in-out;
+  transition: background-position var(--speed) ease-in-out;
 }
 
 .duo1 {
@@ -53,7 +69,7 @@ body {
   height: 100dvh;
   background-color: var(--duo1);
   mix-blend-mode: screen;
-  transition: background-color 1000ms ease-in-out;
+  transition: background-color var(--speed) ease-in-out;
 }
 
 .duo2 {
@@ -62,24 +78,26 @@ body {
   height: 100dvh;
   background-color: var(--duo2);
   mix-blend-mode: multiply;
-  transition: background-color 1000ms ease-in-out;
+  transition: background-color var(--speed) ease-in-out;
 }
 
 .screens {
   position: absolute;
-  display: flex;
   top: 0;
-  left: calc(var(--pos) * -100dvw);
-  transition: left 1000ms ease-in-out;
-  overflow: hidden;
+  left: calc(var(--pos) * -50dvw);
+  transition: left var(--speed) ease-in-out;
 }
 
 .screen {
+  position: absolute;
   width: 100dvw;
   height: 100dvh;
+  top: 0;
+  left: calc(var(--pos) * 50dvw);
   padding: 30px;
   display: flex;
   flex-direction: column;
+  transition: opacity var(--speed) ease-in-out;
 }
 
 .grow {
@@ -87,8 +105,10 @@ body {
 }
 
 .actions {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   padding-bottom: 20px;
+  gap: 20px;
 }
 
 h1, h2 {

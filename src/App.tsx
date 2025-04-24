@@ -1,17 +1,9 @@
 import { useState } from 'react';
-import divider from './assets/divider.svg';
+import { Divider, Button, Screen } from './components';
 import './App.css';
 
 export const App = () => {
   const [screen, setScreen] = useState(0);
-
-  const handleNext = () => {
-    setScreen(screen + 1);
-  };
-
-  const handlePrevious = () => {
-    setScreen(screen - 1);
-  };
   
   return (
     <div className="view" data-screen={screen}>
@@ -24,55 +16,66 @@ export const App = () => {
       <div className="screens">
 
         {/* 0. Welcome screen */}
-        <div className="screen">
+        <Screen pos={0} show={screen === 0}>
           <h1>Oulton Hall Treasure Hunt</h1>
-          <img className="divider" src={divider} />
+          <Divider />
           <div className="grow" />
           <div className="actions">
-            <button onPointerDown={handleNext}>Start</button>
+            <Button onPress={() => setScreen(1)}>Start</Button>
           </div>
-        </div>
+        </Screen>
 
         {/* 1. Instructions */}
-        <div className="screen">
+        <Screen pos={1} show={screen === 1}>
           <h2>The hunt is on!</h2>
-          <img className="divider" src={divider} />
+          <Divider />
           <div className="grow" />
           <div className="actions">
-            <button onPointerDown={handleNext}>Next</button>
+            <Button onPress={() => setScreen(2)}>Next</Button>
           </div>
-        </div>
+        </Screen>
 
         {/* 2. Enter team name */}
-        <div className="screen">
+        <Screen pos={2} show={screen === 2}>
           <h2>Choose your team name</h2>
-          <img className="divider" src={divider} />
+          <Divider />
           <div className="grow" />
           <div className="actions">
-            <button onPointerDown={handleNext}>Next</button>
+            <Button onPress={() => setScreen(3)}>Next</Button>
           </div>
-        </div>
+        </Screen>
 
         {/* 3. Home screen */}
-        <div className="screen">
+        <Screen pos={3} show={screen === 3}>
           <h1>0/7</h1>
           <h1>Books<br />found</h1>
-          <img className="divider" src={divider} />
+          <Divider />
           <div className="grow" />
           <div className="actions">
-            <button onPointerDown={handleNext}>Next</button>
+            <Button onPress={() => setScreen(5)}>&lt;</Button>
+            <Button onPress={() => {}}>+</Button>
+            <Button onPress={() => setScreen(4)}>&gt;</Button>
           </div>
-        </div>
+        </Screen>
 
         {/* 4. Enter quote */}
-        <div className="screen">
+        <Screen pos={4} show={screen === 4}>
           <h2>Enter quote</h2>
-          <img className="divider" src={divider} />
+          <Divider />
           <div className="grow" />
           <div className="actions">
-            <button onPointerDown={handlePrevious}>Next</button>
+            <Button onPress={() => setScreen(3)}>Submit</Button>
           </div>
-        </div>
+        </Screen>
+
+        {/* 5. Found books */}
+        <Screen pos={2} show={screen === 5}>
+          <Divider />
+          <div className="grow" />
+          <div className="actions">
+            <Button onPress={() => setScreen(3)}>Back</Button>
+          </div>
+        </Screen>
 
       </div>
     </div>
