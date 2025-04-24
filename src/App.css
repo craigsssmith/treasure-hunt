@@ -10,37 +10,37 @@ body {
   box-sizing: border-box;
 }
 
-[data-screen="0"] {
+[data-screen="welcome"] {
   --duo1: #DCC3FF;
   --duo2: #A5F4FF;
   --pos: 0;
 }
 
-[data-screen="1"] {
+[data-screen="information"] {
   --duo1: #FFAEF4;
   --duo2: #FFD1B3;
   --pos: 1;
 }
 
-[data-screen="2"] {
+[data-screen="team-name"] {
   --duo1: #FFBBA4;
   --duo2: #FFFABB;
   --pos: 2;
 }
 
-[data-screen="3"] {
+[data-screen="home"] {
   --duo1: #99EFFF;
   --duo2: #EEFFB4;
   --pos: 3;
 }
 
-[data-screen="4"] {
+[data-screen="enter-quote"] {
   --duo1: #FFC0F9;
   --duo2: #FFD4F7;
   --pos: 4;
 }
 
-[data-screen="5"] {
+[data-screen="book-list"] {
   --duo1: #ABCFFF;
   --duo2: #D5CAFF;
   --pos: 2;
@@ -121,6 +121,10 @@ h1, h2 {
 
 h1 {
   font-size: 48px;
+}
+
+h1.big {
+  font-size: 128px;
 }
 
 h2 {
