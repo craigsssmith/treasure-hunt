@@ -11,10 +11,13 @@ export const TeamNameScreen: React.FC<TeamNameScreenProps> = ({ pos, show, onNex
     <Screen pos={pos} show={show}>
       <h2>Choose your team name</h2>
       <Divider />
-      <div className="grow" />
+      <div>
+        <textarea />
+      </div>
       <div className="actions">
         <Button onPress={onNext}>Next</Button>
       </div>
+      <div className="grow" />
     </Screen>
   );
 };

@@ -11,10 +11,13 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
     <Screen pos={pos} show={show}>
       <h2>Enter quote</h2>
       <Divider />
-      <div className="grow" />
+      <div>
+        <textarea className="tall" />
+      </div>
       <div className="actions">
         <Button onPress={onSubmit}>Submit</Button>
       </div>
+      <div className="grow" />
     </Screen>
   );
 };

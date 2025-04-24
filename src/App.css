@@ -111,7 +111,22 @@ body {
   gap: 20px;
 }
 
-h1, h2 {
+.book-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  margin: 0 -30px 20px;
+  padding: 0 30px;
+}
+
+.book {
+  background: #E4E8FF77;
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 40px;
+}
+
+h1, h2, h3 {
   margin: 0;
   font-family: "Ultra", serif;
   font-weight: 400;
@@ -129,6 +144,10 @@ h1.big {
 
 h2 {
   font-size: 32px;
+}
+
+h3 {
+  font-size: 26px;
 }
 
 img.divider {
@@ -157,4 +176,39 @@ button:active {
   top: 6px;
   left: 6px;
   box-shadow: #282D2F 0 0 0;
+}
+
+p {
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 1.6em;
+  margin: 1em 0 0;
+}
+
+p.big {
+  font-size: 18px;
+}
+
+textarea {
+  border: 4px solid #282D2F;
+  padding: 12px;
+  border-radius: 12px;
+  background: white;
+  width: 100%;
+  height: 6em;
+  margin: 20px 0 40px;
+  display: block;
+  font-family: "Geist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1.6em;
+}
+
+textarea.tall {
+  height: 9em;
 }
