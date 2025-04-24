@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useInstallPrompt } from './useInstallPrompt';
-import { useSpeechRecognition } from './useSpeechRecognition';
-import { stringSimilarity } from './utils';
+import { useInstallPrompt } from '../hooks/useInstallPrompt';
+import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
+import { stringSimilarity } from '../utils';
 import './App.css';
 
 export const App = () => {
