@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Divider, Screen, IconButton } from "../components";
+import { getQuotes } from "../services";
+
 import iconBook from '../assets/icon-book.svg';
 import iconMicrophone from '../assets/icon-microphone.svg';
 import iconPencil from '../assets/icon-pencil.svg';
-import { getQuotes } from "../services";
 
 type HomeScreenProps = {
   pos: number;
@@ -13,6 +15,7 @@ type HomeScreenProps = {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote }) => {
   const quotes = getQuotes();
+  const [listening, setListening] = useState(false);
 
   return (
     <Screen pos={pos} show={show}>
@@ -21,16 +24,29 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookLis
       <Divider />
       <div className="grow" />
       <div className="actions">
-        <IconButton onPress={onShowBookList}>
+        <IconButton disabled={listening} onPress={onShowBookList}>
           <img src={iconBook} className="icon-book" />
         </IconButton>
-        <IconButton big onPress={() => {}}>
+        <IconButton big onPress={() => setListening(!listening)}>
           <img src={iconMicrophone} className="icon-microphone" />
         </IconButton>
-        <IconButton onPress={onEnterQuote}>
+        <IconButton disabled={listening} onPress={onEnterQuote}>
           <img src={iconPencil} className="icon-pencil" />
         </IconButton>
+        <SpeechBubble show={listening} />
       </div>
     </Screen>
+  );
+};
+
+type SpeechBubbleProps = {
+  show?: boolean;
+};
+
+export const SpeechBubble: React.FC<SpeechBubbleProps> = ({ show = false }) => {
+  return (
+    <div className={`speech-bubble ${show ? 'active' : ''}`}>
+      Testing!
+    </div>
   );
 };

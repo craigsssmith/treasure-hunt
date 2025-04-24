@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="337px" height="189px" viewBox="0 0 337 189" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53.2 (72643) - https://sketchapp.com -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Dictate-Mode" transform="translate(-28.000000, -484.000000)">
+            <g id="Group-4" transform="translate(28.000000, 484.000000)">
+                <path d="M203.580736,157 L171.526912,189.053824 L139.473088,157 L19,157 C12.372583,157 7,151.627417 7,145 L7,19 C7,12.372583 12.372583,7 19,7 L325,7 C331.627417,7 337,12.372583 337,19 L337,145 C337,151.627417 331.627417,157 325,157 L203.580736,157 Z" id="Combined-Shape" fill="#282D2F"></path>
+                <path d="M164.526912,179.225397 L195.752309,148 L196.580736,148 L318,148 C323.522847,148 328,143.522847 328,138 L328,12 C328,6.4771525 323.522847,2 318,2 L12,2 C6.4771525,2 2,6.4771525 2,12 L2,138 C2,143.522847 6.4771525,148 12,148 L133.301515,148 L164.526912,179.225397 Z" id="Combined-Shape" stroke="#282D2F" stroke-width="4" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>
