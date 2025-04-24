@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">oulton-hall-treasure-hunt</string>
+    <string name="title_activity_main">oulton-hall-treasure-hunt</string>
+    <string name="package_name">com.overreact.treasurehunt</string>
+    <string name="custom_url_scheme">com.overreact.treasurehunt</string>
+</resources>

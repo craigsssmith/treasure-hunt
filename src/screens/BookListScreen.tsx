@@ -18,7 +18,7 @@ export const BookListScreen: React.FC<BookListScreenProps> = ({ pos, show, onBac
           <Book key={quote} index={index + 1} quote={quote} />  
         ))}
         {new Array(7 - quotes.length).fill(true).map((_, index) => (
-          <Book index={index + quotes.length + 1} quote="? ? ?" />  
+          <Book key={index} index={index + quotes.length + 1} />  
         ))}
       </div>
       <div className="actions">
@@ -30,12 +30,12 @@ export const BookListScreen: React.FC<BookListScreenProps> = ({ pos, show, onBac
 
 type BookProps = {
   index: number;
-  quote: string;
+  quote?: string;
 };
 
 const Book: React.FC<BookProps> = ({ index, quote }) => (
   <div className="book">
     <h3>Book {index}:</h3>
-    <p className="big">“{quote}”</p>
+    <p className="big">{quote ? `“${quote}”` : '? ? ?'}</p>
   </div>
 );
