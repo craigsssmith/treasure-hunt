@@ -55,6 +55,7 @@ export const App = () => {
           show={screen === 'home'}
           onEnterQuote={() => setScreen('enter-quote')}
           onShowBookList={() => setScreen('book-list')}
+          onSubmitQuote={handleQuoteSubmit}
           pos={3}
         />
         <EnterQuoteScreen

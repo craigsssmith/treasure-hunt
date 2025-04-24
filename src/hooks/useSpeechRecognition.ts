@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export const useSpeechRecognition = () => {
+export const useSpeechRecognition = (
+  onResult: (event: SpeechRecognitionEvent) => void,
+  onEnd: () => void,
+) => {
   const [value] = useState(() => {
     const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition;
     const recognition = new Constructor();
@@ -10,6 +13,15 @@ export const useSpeechRecognition = () => {
     recognition.maxAlternatives = 1;
     return recognition;
   });
+
+  useEffect(() => {
+    value.addEventListener('result', onResult);
+    value.addEventListener('end', onEnd);
+    return () => {
+      value.removeEventListener('result', onResult);
+      value.removeEventListener('result', onEnd);
+    }
+  }, [onEnd, onResult, value]);
 
   return value;
 };

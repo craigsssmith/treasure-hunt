@@ -290,9 +290,9 @@ textarea.tall {
   margin-left: -166px;
   font-family: "Caveat", cursive;
   font-optical-sizing: auto;
-  font-weight: 400;
+  font-weight: 500;
   font-style: normal;
-  font-size: 28px;
+  font-size: 32px;
   line-height: 1.2em;
   padding: 20px 30px 65px 20px;
   opacity: 0;
@@ -303,4 +303,8 @@ textarea.tall {
 .speech-bubble.active {
   opacity: 1;
   transform: translateY(0) scale(1);
+}
+
+.speech-bubble.placeholder {
+  color: #91999C;
 }

@@ -7,7 +7,7 @@ import './App.css';
 export const App = () => {
   const [count, setCount] = useState(0);
   const prompt = useInstallPrompt();
-  const recognition = useSpeechRecognition();
+  const recognition = useSpeechRecognition(() => {}, () => {});
   const ref = useRef<HTMLDivElement>(null);
 
   const onInstall = async () => {
