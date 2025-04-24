@@ -1,4 +1,7 @@
-import { Divider, Button, Screen } from "../components"
+import { Divider, Screen, IconButton } from "../components";
+import iconBook from '../assets/icon-book.svg';
+import iconMicrophone from '../assets/icon-microphone.svg';
+import iconPencil from '../assets/icon-pencil.svg';
 
 type HomeScreenProps = {
   pos: number;
@@ -15,9 +18,15 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookLis
       <Divider />
       <div className="grow" />
       <div className="actions">
-        <Button onPress={onShowBookList}>&lt;</Button>
-        <Button onPress={() => {}}>+</Button>
-        <Button onPress={onEnterQuote}>&gt;</Button>
+        <IconButton onPress={onShowBookList}>
+          <img src={iconBook} className="icon-book" />
+        </IconButton>
+        <IconButton big onPress={() => {}}>
+          <img src={iconMicrophone} className="icon-microphone" />
+        </IconButton>
+        <IconButton onPress={onEnterQuote}>
+          <img src={iconPencil} className="icon-pencil" />
+        </IconButton>
       </div>
     </Screen>
   );
