@@ -8,6 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "update:assets": "npx capacitor-assets generate",
     "update:version": "npx capacitor-set-version -v $(npm pkg get version --workspaces=false | tr -d \\\") -b $(($(date +%s) / 3600))$(date +%M)"
   },
   "dependencies": {
