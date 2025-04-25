@@ -52,7 +52,7 @@ button {
   font-style: normal;
   font-size: 24px;
   box-shadow: #282D2F 6px 6px 0;
-  transition: all 100ms ease-in-out;
+  transition: all 200ms ease-in-out;
   top: 0;
   left: 0;
   color: #282D2F;
@@ -68,7 +68,7 @@ button.icon {
   border-radius: 100%;
   width: auto;
   padding: 0;
-  transition: all 100ms ease-in-out, opacity 500ms ease-in-out;
+  transition: all 200ms ease-in-out, opacity 500ms ease-in-out;
 }
 
 button.icon.disabled {
@@ -167,7 +167,7 @@ textarea.tall {
   position: absolute;
   width: 100dvw;
   height: 100dvh;
-  background-image: url('./assets/background.png');
+  background-image: url('./assets/background.jpg');
   background-size: auto 100%;
   background-position: calc(45% + (var(--pos) * 10%)) 50%;
   transition: background-position var(--speed) ease-in-out;
@@ -205,6 +205,8 @@ textarea.tall {
   top: 0;
   left: calc(var(--pos) * 50dvw);
   padding: 30px;
+  padding-top: var(--safe-area-inset-top, env(safe-area-inset-top, 30px));
+  padding-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom, 30px));
   display: flex;
   flex-direction: column;
   transition: opacity var(--speed) ease-in-out;

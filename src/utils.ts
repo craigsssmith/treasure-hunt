@@ -1,3 +1,8 @@
+import { SafeAreaInsets, SafeArea } from "capacitor-plugin-safe-area";
+
+/**
+ * 
+ */
 export const stringSimilarity = (str1: string, str2: string, substringLength: number = 2, caseSensitive: boolean = false) => {
 	if (!caseSensitive) {
 		str1 = str1.toLowerCase();
@@ -24,4 +29,18 @@ export const stringSimilarity = (str1: string, str2: string, substringLength: nu
 	}
 
 	return (match * 2) / (str1.length + str2.length - ((substringLength - 1) * 2));
+};
+
+/**
+ * 
+ */
+export const setupSafeAreas = () => {
+	const updateInsets = ({ insets }: SafeAreaInsets) => {
+    for (const [key, value] of Object.entries(insets)) {
+      document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`,);
+    }
+  };
+  
+  SafeArea.getSafeAreaInsets().then(updateInsets);
+  SafeArea.addListener('safeAreaChanged', updateInsets);
 };

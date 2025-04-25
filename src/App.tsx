@@ -25,7 +25,7 @@ export const App = () => {
         setScreen('home');
       }, 1000);
     }
-  }, [screen])
+  }, [screen]);
   
   return (
     <div className="view" data-screen={screen}>
