@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Divider, Screen, IconButton } from "../components";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
-import { getQuotes } from "../services";
+import { checkQuote, getQuotes } from "../services";
 
 import iconBook from '../assets/icon-book.svg';
 import iconMicrophone from '../assets/icon-microphone.svg';
@@ -15,31 +15,15 @@ type HomeScreenProps = {
   onSubmitQuote: (quote: string) => void;
 };
 
-export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote, onSubmitQuote }) => {
+export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote }) => {
   const quotes = getQuotes();
   const [listening, setListening] = useState(false);
   const [quote, setQuote] = useState('');
 
-  const handleSpeechResult = (event: SpeechRecognitionEvent) => {
-    const result = event.results[0];
-    const text = result[0].transcript;
-
-    if (text.length >= quote.length) {
-      setQuote(text);
-    }
-
-    if (result.isFinal) {
-      onSubmitQuote(text);
-    }
-  };
-
-  const handleSpeechEnd = () => {
-    setTimeout(() => {
-      setListening(false);
-    }, 1000);
-  };
-
-  const recognition = useSpeechRecognition(handleSpeechResult, handleSpeechEnd);
+  const recognition = useSpeechRecognition(setQuote, () => {
+    setListening(false);
+    checkQuote(quote);
+  });
 
   const handleListenPress = () => {
     if (listening) {

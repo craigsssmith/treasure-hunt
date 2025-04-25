@@ -1,27 +1,52 @@
-import { useEffect, useState } from "react";
+import { useCallback, useMemo, useRef } from "react";
+import { SpeechRecognition } from "@capacitor-community/speech-recognition";
+import { useFixedUpdate } from "@overreact/engine";
 
 export const useSpeechRecognition = (
-  onResult: (event: SpeechRecognitionEvent) => void,
+  onResult: (text: string) => void,
   onEnd: () => void,
 ) => {
-  const [value] = useState(() => {
-    const Constructor = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const recognition = new Constructor();
-    recognition.continuous = false;
-    recognition.lang = "en-GB";
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 1;
-    return recognition;
+  const active = useRef(false);
+  const timeout = useRef(0);
+  const text = useRef('');
+
+  const handleResults = useCallback(({ matches }: { matches: string[] }) => {
+    timeout.current = 0;
+    text.current = matches[0];
+    onResult(matches[0]);
+  }, [onResult]);
+
+  SpeechRecognition.available();
+  SpeechRecognition.addListener('partialResults', handleResults);
+
+  const start = useCallback(() => {
+    active.current = true;
+    timeout.current = 0;
+    text.current = '';
+    
+    SpeechRecognition.start({
+      language: "en-GB",
+      maxResults: 2,
+      prompt: "Say something",
+      partialResults: true,
+    });
+  }, []);
+
+  const stop = useCallback(() => {
+    active.current = false;
+    SpeechRecognition.stop();
+  }, []);
+
+  useFixedUpdate(10, (delta) => {
+    if (active.current) {
+      timeout.current += delta;
+      
+      if ((timeout.current > 2000 && text.current !== '') || timeout.current > 5000) {
+        stop();
+        onEnd();
+      }
+    }
   });
 
-  useEffect(() => {
-    value.addEventListener('result', onResult);
-    value.addEventListener('end', onEnd);
-    return () => {
-      value.removeEventListener('result', onResult);
-      value.removeEventListener('result', onEnd);
-    }
-  }, [onEnd, onResult, value]);
-
-  return value;
+  return useMemo(() => ({ start, stop }), [start, stop]);
 };

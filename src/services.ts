@@ -23,6 +23,8 @@ export const checkQuote = (input: string): boolean => {
     }
   }
 
+  console.log(bestSimilarity, bestQuote);
+
   if (bestSimilarity >= 0.9) {
     addQuote(bestQuote);
     return true;

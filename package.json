@@ -10,15 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor-community/speech-recognition": "^7.0.0",
     "@capacitor/android": "^7.2.0",
     "@capacitor/core": "^7.2.0",
     "@capacitor/ios": "^7.2.0",
+    "@overreact/engine": "^1.0.3",
     "@types/dom-speech-recognition": "^0.0.6",
     "capacitor-plugin-safe-area": "^4.0.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^7.2.0",
     "@eslint/js": "^9.22.0",
     "@types/react": "^19.0.10",
