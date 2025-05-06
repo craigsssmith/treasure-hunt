@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
 import { SpeechRecognition } from "@capacitor-community/speech-recognition";
 import { useFixedUpdate } from "@overreact/engine";
 
@@ -47,6 +47,10 @@ export const useSpeechRecognition = (
       }
     }
   });
+
+  useLayoutEffect(() => {
+    SpeechRecognition.requestPermissions();
+  }, []);
 
   return useMemo(() => ({ start, stop }), [start, stop]);
 };
