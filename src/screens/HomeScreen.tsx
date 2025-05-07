@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useShaker } from "@overreact/engine";
+import { forwardRef, useState } from "react";
 import { Divider, Screen, IconButton } from "../components";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
+import { useConfetti } from "../particles/useConfetti";
 import { checkQuote, getQuotes } from "../services";
 
 import iconBook from '../assets/icon-book.svg';
@@ -16,13 +18,20 @@ type HomeScreenProps = {
 };
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote }) => {
+  const confetti = useConfetti();
+  const shaker = useShaker({ strength: 20 });
   const quotes = getQuotes();
   const [listening, setListening] = useState(false);
   const [quote, setQuote] = useState('');
 
   const recognition = useSpeechRecognition(setQuote, () => {
-    setListening(false);
-    checkQuote(quote);
+    if (checkQuote(quote)) {
+      confetti.trigger(shaker.ref.current);
+    } else {
+      shaker.shake();
+    }
+
+    setTimeout(() => setListening(false), 500);
   });
 
   const handleListenPress = () => {
@@ -52,7 +61,7 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookLis
         <IconButton disabled={listening} onPress={onEnterQuote}>
           <img src={iconPencil} className="icon-pencil" />
         </IconButton>
-        <SpeechBubble show={listening} text={quote} />
+        <SpeechBubble ref={shaker.ref} show={listening} text={quote} />
       </div>
     </Screen>
   );
@@ -63,10 +72,10 @@ type SpeechBubbleProps = {
   text: string;
 };
 
-export const SpeechBubble: React.FC<SpeechBubbleProps> = ({ text, show = false }) => {
-  return (
-    <div className={`speech-bubble ${show ? 'active' : ''} ${text === '' ? 'placeholder' : ''}`}>
+export const SpeechBubble = forwardRef<HTMLDivElement, SpeechBubbleProps>(({ text, show = false }, ref) => (
+  <div ref={ref} className={`speech-bubble ${show ? 'active' : ''} ${text === '' ? 'placeholder' : ''}`}>
+    <div className="inner">
       {text || 'Say something'}
     </div>
-  );
-};
+  </div>
+));

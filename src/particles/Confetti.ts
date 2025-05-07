@@ -27,7 +27,10 @@ export class Confetti extends BaseParticle {
     this.node.style.position = 'absolute';
     this.node.style.width = `${this.size[0]}px`;
     this.node.style.height = `${this.size[1]}px`;
-    this.node.style.backgroundColor = `hsl(${Math.random() * 360}deg 100% 50%)` //'#282D2F';
+
+    const hue = Math.random() * 360;
+    const lightness = Math.random() * 20 + 50;
+    this.node.style.backgroundColor = `hsl(${hue}deg 100% ${lightness}%)` //'#282D2F';
 
     const x = Math.round(this.pos[0] - this.size[0] / 2);
     const y = Math.round(this.pos[1] - this.size[1] / 2);

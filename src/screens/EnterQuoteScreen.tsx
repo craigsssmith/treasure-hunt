@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Divider, Button, Screen } from "../components"
 import { useConfetti } from "../particles/useConfetti";
 import { checkQuote } from "../services";
@@ -14,7 +14,6 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
   const confetti = useConfetti();
   const shaker = useShaker({ strength: 20 });
 
-  const ref = useRef<HTMLDivElement>(null);
   const [quote, setQuote] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -23,9 +22,9 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
 
   const handleSubmit = () => {
     if (checkQuote(quote)) {
-      confetti.trigger(ref.current);
-      setQuote('');
-      onBack();
+      confetti.trigger(shaker.ref.current);
+      setTimeout(onBack, 500);
+      setTimeout(() => setQuote(''), 2000);
     } else {
       shaker.shake();
     }
@@ -38,10 +37,8 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
       <div>
         <textarea className="tall" value={quote} onChange={handleChange} />
       </div>
-      <div className="actions" ref={ref}>
-        <div ref={shaker.ref}>
-          <Button onPress={handleSubmit}>Submit</Button>
-        </div>
+      <div className="actions" ref={shaker.ref}>
+        <Button onPress={handleSubmit}>Submit</Button>
       </div>
       <div className="grow" />
       <div className="actions">

@@ -5,16 +5,16 @@ import { Confetti } from "./Confetti";
 export const useConfetti = () => {
   const particles = useParticles();
   
-  const trigger = useCallback((element: HTMLElement | null) => {
-    if (element) {
-      const pos: Position = [
-        element.offsetLeft + element.offsetWidth / 2,
-        element.offsetTop + element.offsetHeight / 2,
-      ];
+  const trigger = useCallback((element?: HTMLElement | null) => {
+    let pos: Position = [window.innerWidth / 2, window.innerHeight / 2];
 
-      for (let i = 0; i < 300; i++) {
-        particles.attach(new Confetti(pos));
-      }
+    if (element) {
+      const rect = element.getBoundingClientRect();
+      pos = [rect.left + rect.width / 2, rect.top + rect.height / 2];
+    }
+    
+    for (let i = 0; i < 350; i++) {
+      particles.attach(new Confetti(pos));
     }
   }, [particles]);
 
