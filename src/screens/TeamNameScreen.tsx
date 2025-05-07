@@ -1,5 +1,8 @@
+import { useAudio, useShaker } from "@overreact/engine";
 import { useState, ChangeEvent } from "react";
 import { Divider, Button, Screen } from "../components"
+
+import soundInvalid from '../assets/quote-invalid.ogg';
 
 type TeamNameScreenProps = {
   pos: number;
@@ -8,6 +11,8 @@ type TeamNameScreenProps = {
 };
 
 export const TeamNameScreen: React.FC<TeamNameScreenProps> = ({ pos, show, onSubmit }) => {
+  const audio = useAudio();
+  const shaker = useShaker({ strength: 20 });
   const [name, setName] = useState('');
   
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -15,8 +20,13 @@ export const TeamNameScreen: React.FC<TeamNameScreenProps> = ({ pos, show, onSub
   }
 
   const handleSubmit = () => {
-    onSubmit(name);
-    setName('');
+    if (name.trim() !== '') {
+      onSubmit(name);
+      setName('');
+    } else {
+      shaker.shake();
+      audio.play(soundInvalid);
+    }
   };
 
   return (
@@ -26,7 +36,7 @@ export const TeamNameScreen: React.FC<TeamNameScreenProps> = ({ pos, show, onSub
       <div>
         <textarea value={name} onChange={handleChange} />
       </div>
-      <div className="actions">
+      <div className="actions" ref={shaker.ref}>
         <Button onPress={handleSubmit}>Next</Button>
       </div>
       <div className="grow" />
