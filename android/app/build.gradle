@@ -7,7 +7,7 @@ android {
         applicationId "com.overreact.treasurehunt"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 48503312
+        versionCode 48516752
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {

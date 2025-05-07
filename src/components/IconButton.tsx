@@ -1,3 +1,5 @@
+import { Button } from "./Button";
+
 type IconButtonProps = {
   onPress: () => void;
   children: React.ReactNode;
@@ -6,14 +8,13 @@ type IconButtonProps = {
 };
 
 export const IconButton: React.FC<IconButtonProps> = ({ children, onPress, big, disabled }) => (
-  <button
-    className={`icon ${big ? 'big' : ''} ${disabled ? 'disabled' : ''}`}
-    onPointerDown={() => {
-      setTimeout(onPress, 500);
-    }}
+  <Button
+    className={`icon ${big ? 'big' : ''}`}
+    onPress={onPress}
+    enabled={!disabled}
   >
     <span>
       {children}
     </span>
-  </button>
+  </Button>
 );

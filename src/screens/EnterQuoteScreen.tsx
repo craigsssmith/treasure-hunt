@@ -23,7 +23,7 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
   const handleSubmit = () => {
     if (checkQuote(quote)) {
       confetti.trigger(shaker.ref.current);
-      setTimeout(onBack, 500);
+      onBack();
       setTimeout(() => setQuote(''), 2000);
     } else {
       shaker.shake();

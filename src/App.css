@@ -58,7 +58,7 @@ button {
   color: #282D2F;
 }
 
-button:active {
+button.active {
   top: 6px;
   left: 6px;
   box-shadow: #282D2F 0 0 0;
@@ -71,7 +71,7 @@ button.icon {
   transition: all 200ms ease-in-out, opacity 500ms ease-in-out;
 }
 
-button.icon.disabled {
+button.icon:disabled {
   opacity: 0.4;
   pointer-events: none;
 }
