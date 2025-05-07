@@ -1,8 +1,11 @@
+import { useAudio, useShaker } from "@overreact/engine";
 import { ChangeEvent, useState } from "react";
 import { Divider, Button, Screen } from "../components"
 import { useConfetti } from "../particles/useConfetti";
 import { checkQuote } from "../services";
-import { useShaker } from "@overreact/engine";
+
+import soundQuoteValid from '../assets/quote-valid.mp3';
+import soundQuoteInvalid from '../assets/quote-invalid.ogg';
 
 type EnterQuoteScreenProps = {
   pos: number;
@@ -12,6 +15,7 @@ type EnterQuoteScreenProps = {
 
 export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, onBack }) => {
   const confetti = useConfetti();
+  const audio = useAudio();
   const shaker = useShaker({ strength: 20 });
 
   const [quote, setQuote] = useState('');
@@ -23,10 +27,12 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
   const handleSubmit = () => {
     if (checkQuote(quote)) {
       confetti.trigger(shaker.ref.current);
+      audio.play(soundQuoteValid);
       onBack();
       setTimeout(() => setQuote(''), 2000);
     } else {
       shaker.shake();
+      audio.play(soundQuoteInvalid);
     }
   };
 

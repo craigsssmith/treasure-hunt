@@ -1,8 +1,14 @@
-import { Prop, useProperty, useRender, useUpdate } from "@overreact/engine";
+import { Prop, useAudio, useProperty, useRender, useUpdate } from "@overreact/engine";
 import React, { useRef } from "react";
 import { usePropertyChange } from "../hooks/usePropertyChange";
 
+import buttonSound1 from "../assets/button-1.mp3";
+import buttonSound2 from "../assets/button-2.mp3";
+import buttonSound3 from "../assets/button-3.mp3";
+
 const PRESS_TIME = 200;
+
+const SOUNDS = [buttonSound1, buttonSound2, buttonSound3];
 
 export type ButtonProps = {
   children?: React.ReactNode;
@@ -15,7 +21,7 @@ export type ButtonProps = {
 };
 
 export const Button: React.FC<ButtonProps> = ({ children, className, fast = true, onPress, ...props }) => {
-  // const audio = useAudio();
+  const audio = useAudio();
   // const haptics = useHaptics();
   
   const ref = useRef<HTMLButtonElement>(null);
@@ -41,19 +47,15 @@ export const Button: React.FC<ButtonProps> = ({ children, className, fast = true
     }
   };
 
-  // const provideFeedback = () => {
-  //   // haptics.notification('success');
-  //   // if (!silent) {
-  //   //   audio.play(sounds[Math.floor(Math.random() * sounds.length)]);
-  //   // }
-  // }
+  const provideFeedback = () => {
+    // haptics.notification('success');
+    audio.play(SOUNDS[Math.floor(Math.random() * SOUNDS.length)]);
+  }
 
   usePropertyChange(active, () => {
-    console.log(active.current);
-    // if (active.current) {
-    //   duration.current = 0;
-    //   provideFeedback();
-    // }
+    if (active.current) {
+      provideFeedback();
+    }
   });
 
   useUpdate((delta) => {    

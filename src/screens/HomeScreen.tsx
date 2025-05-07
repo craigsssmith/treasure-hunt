@@ -1,4 +1,4 @@
-import { useShaker } from "@overreact/engine";
+import { useAudio, useShaker } from "@overreact/engine";
 import { forwardRef, useState } from "react";
 import { Divider, Screen, IconButton } from "../components";
 import { useSpeechRecognition } from "../hooks/useSpeechRecognition";
@@ -8,6 +8,9 @@ import { checkQuote, getQuotes } from "../services";
 import iconBook from '../assets/icon-book.svg';
 import iconMicrophone from '../assets/icon-microphone.svg';
 import iconPencil from '../assets/icon-pencil.svg';
+
+import soundQuoteValid from '../assets/quote-valid.mp3';
+import soundQuoteInvalid from '../assets/quote-invalid.ogg';
 
 type HomeScreenProps = {
   pos: number;
@@ -19,6 +22,7 @@ type HomeScreenProps = {
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookList, onEnterQuote }) => {
   const confetti = useConfetti();
+  const audio = useAudio();
   const shaker = useShaker({ strength: 20 });
   const quotes = getQuotes();
   const [listening, setListening] = useState(false);
@@ -27,8 +31,10 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ pos, show, onShowBookLis
   const recognition = useSpeechRecognition(setQuote, () => {
     if (checkQuote(quote)) {
       confetti.trigger(shaker.ref.current);
+      audio.play(soundQuoteValid);
     } else {
       shaker.shake();
+      audio.play(soundQuoteInvalid);
     }
 
     setTimeout(() => setListening(false), 500);
