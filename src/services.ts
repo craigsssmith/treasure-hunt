@@ -31,13 +31,17 @@ export const checkQuote = (input: string): boolean => {
     }
   }
 
-  if (bestSimilarity >= 0.9) {
+  if (bestSimilarity >= 0.9 && !hasQuote(bestQuote)) {
     addQuote(bestQuote);
     return true;
   }
 
   return false;
 };
+
+export const hasQuote = (quote: string): boolean => {
+  return getQuotes().includes(quote);
+}
 
 export const addQuote = (quote: string): void => {
   const quotes = getQuotes();
