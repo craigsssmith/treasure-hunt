@@ -1,9 +1,10 @@
-import { Position, useParticles } from "@overreact/engine";
+import { Position, useDevice, useParticles } from "@overreact/engine";
 import { useCallback, useMemo } from "react";
 import { Confetti } from "./Confetti";
 
 export const useConfetti = () => {
   const particles = useParticles();
+  const { size } = useDevice();
   
   const trigger = useCallback((element?: HTMLElement | null) => {
     let pos: Position = [window.innerWidth / 2, window.innerHeight / 2];
@@ -14,9 +15,9 @@ export const useConfetti = () => {
     }
     
     for (let i = 0; i < 350; i++) {
-      particles.attach(new Confetti(pos));
+      particles.attach(new Confetti(pos, size.current));
     }
-  }, [particles]);
+  }, [particles, size]);
 
   return useMemo(() => ({ trigger }), [trigger]);
 };

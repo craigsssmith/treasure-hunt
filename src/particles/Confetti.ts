@@ -7,8 +7,9 @@ export class Confetti extends BaseParticle {
   angle: number;
   rotation: number;
   opacity: number;
+  container: Size;
 
-  constructor(pos: Position) {
+  constructor(pos: Position, container: Size) {
     super();
     this.ttl = 5000 * Math.random() + 10000;
     this.size = [(16 * Math.random() + 4), (4 * Math.random() + 4)];
@@ -16,6 +17,7 @@ export class Confetti extends BaseParticle {
     this.angle = Math.random() * 360;
     this.rotation = (Math.random() + 0.5) * Math.sign(Math.random() - 0.5) * 5;
     this.opacity = 1;
+    this.container = container;
 
     const dx = Math.random() - 0.5;
     const dy = Math.random() - 0.7;
@@ -49,6 +51,21 @@ export class Confetti extends BaseParticle {
 
     this.pos[0] += this.velocity[0];
     this.pos[1] += this.velocity[1];
+
+    if (this.pos[1] < 0) {
+      this.pos[1] = 0;
+      this.velocity[1] *= -0.8;
+    }
+
+    if (this.pos[0] < 0) {
+      this.pos[0] = 0;
+      this.velocity[0] *= -0.8;
+    }
+
+    if (this.pos[0] > this.container[0]) {
+      this.pos[0] = this.container[0];
+      this.velocity[0] *= -0.8;
+    }
 
     this.angle += this.rotation;
 
