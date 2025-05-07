@@ -1,13 +1,20 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { Divider, Button, Screen } from "../components"
+import { useConfetti } from "../particles/useConfetti";
+import { checkQuote } from "../services";
+import { useShaker } from "@overreact/engine";
 
 type EnterQuoteScreenProps = {
   pos: number;
   show: boolean;
-  onSubmit: (quote: string) => void;
+  onBack: () => void;
 };
 
-export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, onSubmit }) => {
+export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, onBack }) => {
+  const confetti = useConfetti();
+  const shaker = useShaker({ strength: 20 });
+
+  const ref = useRef<HTMLDivElement>(null);
   const [quote, setQuote] = useState('');
 
   const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -15,8 +22,13 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
   }
 
   const handleSubmit = () => {
-    onSubmit(quote);
-    setQuote('');
+    if (checkQuote(quote)) {
+      confetti.trigger(ref.current);
+      setQuote('');
+      onBack();
+    } else {
+      shaker.shake();
+    }
   };
 
   return (
@@ -26,10 +38,15 @@ export const EnterQuoteScreen: React.FC<EnterQuoteScreenProps> = ({ pos, show, o
       <div>
         <textarea className="tall" value={quote} onChange={handleChange} />
       </div>
-      <div className="actions">
-        <Button onPress={handleSubmit}>Submit</Button>
+      <div className="actions" ref={ref}>
+        <div ref={shaker.ref}>
+          <Button onPress={handleSubmit}>Submit</Button>
+        </div>
       </div>
       <div className="grow" />
+      <div className="actions">
+        <Button onPress={onBack}>Back</Button>
+      </div>
     </Screen>
   );
 };

@@ -1,3 +1,4 @@
+import { Particles } from '@overreact/engine';
 import { useEffect, useState } from 'react';
 import { BookListScreen, EnterQuoteScreen, HomeScreen, InformationScreen, TeamNameScreen, WelcomeScreen } from './screens';
 import { checkQuote, getTeamName, setTeamName } from './services';
@@ -60,7 +61,7 @@ export const App = () => {
         />
         <EnterQuoteScreen
           show={screen === 'enter-quote'}
-          onSubmit={handleQuoteSubmit}
+          onBack={() => setScreen('home')}
           pos={4}
         />
         <BookListScreen
@@ -68,6 +69,9 @@ export const App = () => {
           show={screen === 'book-list'}
           onBack={() => setScreen('home')}
         />
+      </div>
+      <div className="particles">
+        <Particles />
       </div>
     </div>
   )
