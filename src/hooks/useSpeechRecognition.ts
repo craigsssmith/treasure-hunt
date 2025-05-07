@@ -16,8 +16,8 @@ export const useSpeechRecognition = (
     onResult(matches[0]);
   }, [onResult]);
 
-  SpeechRecognition.available();
-  SpeechRecognition.addListener('partialResults', handleResults);
+  SpeechRecognition.available().catch(() => {});
+  SpeechRecognition.addListener('partialResults', handleResults).catch(() => {});
 
   const start = useCallback(() => {
     active.current = true;
@@ -29,12 +29,12 @@ export const useSpeechRecognition = (
       maxResults: 2,
       prompt: "Say something",
       partialResults: true,
-    });
+    }).catch(() => {});
   }, []);
 
   const stop = useCallback(() => {
     active.current = false;
-    SpeechRecognition.stop();
+    SpeechRecognition.stop().catch(() => {});
   }, []);
 
   useFixedUpdate(10, (delta) => {
@@ -49,7 +49,7 @@ export const useSpeechRecognition = (
   });
 
   useLayoutEffect(() => {
-    SpeechRecognition.requestPermissions();
+    SpeechRecognition.requestPermissions().catch(() => {});
   }, []);
 
   return useMemo(() => ({ start, stop }), [start, stop]);
